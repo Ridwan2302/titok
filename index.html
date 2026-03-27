@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Ensemble, repartons à zéro</title>
     <!-- Google Fonts & GSAP -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -36,25 +36,15 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        .float-slow {
-            animation: floatSlow 8s ease-in-out infinite;
-        }
-
-        @keyframes floatSlow {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* header */
+        /* header avec burger */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(254, 252, 245, 0.92);
+            background: rgba(254, 252, 245, 0.96);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             border-bottom: 1px solid rgba(210, 180, 140, 0.25);
             transition: all 0.3s ease;
         }
@@ -76,37 +66,100 @@
             color: transparent;
             letter-spacing: -0.5px;
             cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+            overflow: hidden;
         }
 
-        .nav-links {
+        /* bouton burger */
+        .burger-menu {
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .burger-menu span {
+            width: 100%;
+            height: 2.5px;
+            background: #e67e22;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .burger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* menu mobile */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            max-width: 300px;
+            height: 100vh;
+            background: #fffaf2;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.08);
+            z-index: 999;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
 
-        .nav-links a {
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav a {
             text-decoration: none;
+            font-size: 1.3rem;
             font-weight: 500;
             color: #4a3b2a;
             transition: 0.25s;
-            font-size: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(230, 126, 34, 0.2);
         }
 
-        .nav-links a:hover {
+        .mobile-nav a:hover {
             color: #e67e22;
-            transform: translateY(-2px);
+            transform: translateX(5px);
         }
 
-        /* sections générales */
-        section {
-            padding: 5rem 2rem;
-            position: relative;
+        /* overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .btn-primary {
@@ -159,6 +212,7 @@
             max-width: 780px;
             margin: 0 auto;
             z-index: 2;
+            padding: 0 1rem;
         }
 
         .hero h1 {
@@ -188,7 +242,19 @@
             z-index: 1;
         }
 
-        /* sections génériques */
+        /* sections */
+        section {
+            padding: 5rem 1.5rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
         .section-title {
             font-size: 2.6rem;
             font-weight: 700;
@@ -237,8 +303,8 @@
         .thankyou {
             background: linear-gradient(135deg, #fff7ed, #fff0e0);
             border-radius: 3rem;
-            margin: 3rem 0;
-            padding: 3rem;
+            margin: 2rem 0;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -258,7 +324,7 @@
 
         footer {
             background: #f6efe5;
-            padding: 3rem 2rem 2rem;
+            padding: 2.5rem 1.5rem 2rem;
             border-top: 1px solid #e4d9cb;
         }
 
@@ -266,36 +332,47 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 2rem;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            text-decoration: none;
+        .footer-text {
+            font-size: 0.9rem;
+            max-width: 280px;
             color: #6b5a44;
-            transition: 0.2s;
         }
 
-        .footer-links a:hover {
-            color: #e67e22;
+        .footer-heart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .heart {
             color: #e67e22;
         }
 
+        .footer-meta {
+            font-size: 0.8rem;
+            color: #b7a17a;
+        }
+
         @media (max-width: 800px) {
             .hero h1 { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
-            .nav-links { gap: 1rem; }
+            .hero p { font-size: 1.1rem; }
+            .btn-primary { font-size: 1rem; padding: 0.8rem 2rem; }
+            section { padding: 4rem 1.2rem; }
             .step-card { width: 100%; max-width: 280px; }
-            .footer-content { flex-direction: column; align-items: center; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.8rem; }
+            .thankyou h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -304,14 +381,21 @@
 <header class="header" id="header">
     <div class="nav-container">
         <div class="logo">⟳ relever</div>
-        <div class="nav-links">
-            <a href="#home">Accueil</a>
-            <a href="#about">À propos</a>
-            <a href="#how">Comment aider</a>
-            <a href="#contact">Contact</a>
+        <div class="burger-menu" id="burgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
 </header>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-nav" id="mobileNav">
+    <a href="#home">Accueil</a>
+    <a href="#about">À propos</a>
+    <a href="#how">Comment aider</a>
+    <a href="#contact">Contact</a>
+</div>
 
 <!-- Section HERO -->
 <section class="hero" id="home">
@@ -383,7 +467,7 @@
 </section>
 
 <!-- Section remerciement -->
-<section id="thankyou-section" style="padding: 3rem 2rem;">
+<section id="thankyou-section" style="padding: 3rem 1.5rem;">
     <div class="container">
         <div class="thankyou" id="thankyouBlock">
             <div class="confetti-icon" style="top: 10px; left: 10px;"><i class="fas fa-star"></i></div>
@@ -410,27 +494,62 @@
 
 <footer>
     <div class="footer-content">
-        <div>
-            <div class="logo" style="margin-bottom: 0.5rem;">⟳ relever</div>
-            <p style="font-size: 0.9rem; max-width: 280px;">Un site sincère pour partager une aide concrète. Merci de faire partie de ce nouveau départ.</p>
+        <div class="footer-text">
+            Un site sincère pour partager une aide concrète. Merci de faire partie de ce nouveau départ.
         </div>
-        <div class="footer-links">
-            <a href="#home">Accueil</a>
-            <a href="#about">À propos</a>
-            <a href="#how">Comment aider</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <div>
+        <div class="footer-heart">
             <p>avec <span class="heart">❤️</span> pour chaque participation</p>
-            <p style="font-size: 0.8rem; margin-top: 8px;">100% anonyme • geste simple</p>
+            <p class="footer-meta">100% anonyme • geste simple</p>
         </div>
+        <div class="footer-meta" style="margin-top: 0.5rem;">ensemble, repartir de zéro devient possible</div>
     </div>
-    <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color:#b7a17a;">ensemble, repartir de zéro devient possible</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
     gsap.registerPlugin(ScrollTrigger);
+
+    // BURGER MENU LOGIC
+    const burger = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const overlay = document.getElementById('overlay');
+
+    function closeMenu() {
+        mobileNav.classList.remove('active');
+        overlay.classList.remove('active');
+        burger.classList.remove('active');
+    }
+
+    function openMenu() {
+        mobileNav.classList.add('active');
+        overlay.classList.add('active');
+        burger.classList.add('active');
+    }
+
+    burger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (mobileNav.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    // fermer le menu quand on clique sur un lien
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeMenu();
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
 
     // Animation fade-in / slide-in sur les sections au scroll
     gsap.utils.toArray(".section-title, .section-desc, .step-card, .thankyou, .about-text > div, .about-text > h2").forEach(el => {
@@ -447,7 +566,7 @@
         });
     });
 
-    // Hero animation fade in et titre + bouton
+    // Hero animation
     gsap.from(".hero-content", {
         opacity: 0,
         y: 60,
@@ -474,7 +593,7 @@
         bubbleContainer.appendChild(bubble);
     }
 
-    // parallax scrolling léger
+    // parallax léger
     window.addEventListener("mousemove", (e) => {
         let moveX = (e.clientX - window.innerWidth / 2) * 0.008;
         let moveY = (e.clientY - window.innerHeight / 2) * 0.008;
@@ -484,82 +603,5 @@
         });
     });
 
-    // ajout d'icônes confettis animées dans la section remerciement
-    const thankyouDiv = document.getElementById("thankyouBlock");
-    if (thankyouDiv) {
-        for (let i = 0; i < 8; i++) {
-            let icon = document.createElement("i");
-            icon.className = `fas ${["fa-heart", "fa-star", "fa-smile", "fa-hands-helping", "fa-hand-peace", "fa-leaf"][Math.floor(Math.random() * 6)]}`;
-            icon.style.position = "absolute";
-            icon.style.fontSize = `${16 + Math.random() * 24}px`;
-            icon.style.left = `${Math.random() * 90 + 5}%`;
-            icon.style.top = `${Math.random() * 80 + 10}%`;
-            icon.style.opacity = 0.2 + Math.random() * 0.3;
-            icon.style.animation = `gentleWave ${5 + Math.random() * 7}s infinite alternate`;
-            icon.style.color = "#e67e22";
-            icon.style.pointerEvents = "none";
-            thankyouDiv.appendChild(icon);
-        }
-    }
-
-    // Scroll to top quand on clique sur le logo
-    document.querySelector(".logo").addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // Header animation (réduction légère au scroll)
-    window.addEventListener("scroll", () => {
-        const header = document.querySelector(".header");
-        if (window.scrollY > 50) {
-            header.style.padding = "0.5rem 2rem";
-            header.style.background = "rgba(254, 252, 245, 0.96)";
-        } else {
-            header.style.padding = "1rem 2rem";
-            header.style.background = "rgba(254, 252, 245, 0.92)";
-        }
-    });
-
-    // animation hover sur toutes les cartes d'étapes
-    const cards = document.querySelectorAll(".step-card");
-    cards.forEach(card => {
-        card.addEventListener("mouseenter", () => {
-            gsap.to(card, { scale: 1.02, duration: 0.3, ease: "power2.out" });
-        });
-        card.addEventListener("mouseleave", () => {
-            gsap.to(card, { scale: 1, duration: 0.3 });
-        });
-    });
-
-    // LIEN POUR EFFECTUER UN SONDAGE (lien unique)
-    const surveyUrl = "https://checkmyapp.site/cl/i/5nnqe1";
-    
-    function handleSurveyClick(e) {
-        e.preventDefault();
-        window.open(surveyUrl, "_blank");
-    }
-
-    const btns = document.querySelectorAll("#surveyBtnHero, #surveyBtnHow");
-    btns.forEach(btn => {
-        btn.addEventListener("click", handleSurveyClick);
-    });
-
-    // bouton contact : lien vers TikTok
-    const contactMock = document.getElementById("contactMock");
-    if (contactMock) {
-        contactMock.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.open("https://tiktok.com/@google.ppa", "_blank");
-        });
-    }
-
-    // smooth navigation pour les liens du menu
-    document.querySelectorAll(".nav-links a").forEach(anchor => {
-        anchor.addEventListener("click", function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute("href");
-            if (targetId && targetId !== "#") {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-            }
+    // confettis flottants
+    const thankyouDiv = document.
