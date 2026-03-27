@@ -22,19 +22,6 @@
             color: #2a2418;
             overflow-x: hidden;
             line-height: 1.4;
-            opacity: 0;
-            animation: pageSlideUp 0.8s ease-out forwards;
-        }
-
-        @keyframes pageSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* animations globales */
@@ -48,15 +35,25 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* header avec burger */
+        .float-slow {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* header */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(254, 252, 245, 0.95);
+            background: rgba(254, 252, 245, 0.92);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            padding: 1rem 1.5rem;
+            padding: 1rem 2rem;
             border-bottom: 1px solid rgba(210, 180, 140, 0.25);
             transition: all 0.3s ease;
         }
@@ -80,43 +77,9 @@
             cursor: pointer;
         }
 
-        /* Bouton burger */
-        .burger-menu {
-            display: block;
-            cursor: pointer;
-            font-size: 1.8rem;
-            color: #e67e22;
-            transition: 0.2s;
-            z-index: 1001;
-        }
-
-        .burger-menu:hover {
-            transform: scale(1.05);
-        }
-
         .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 70%;
-            max-width: 280px;
-            height: 100vh;
-            background: rgba(254, 252, 245, 0.98);
-            backdrop-filter: blur(20px);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.05);
-            z-index: 1000;
             display: flex;
-            list-style: none;
-            padding: 2rem;
-        }
-
-        .nav-links.active {
-            right: 0;
+            gap: 2rem;
         }
 
         .nav-links a {
@@ -124,51 +87,18 @@
             font-weight: 500;
             color: #4a3b2a;
             transition: 0.25s;
-            font-size: 1.2rem;
-            padding: 0.5rem;
+            font-size: 1rem;
         }
 
         .nav-links a:hover {
             color: #e67e22;
-            transform: translateX(5px);
+            transform: translateY(-2px);
         }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(3px);
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-            z-index: 999;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* sections */
+        /* sections générales */
         section {
-            padding: 4rem 1.5rem;
+            padding: 5rem 2rem;
             position: relative;
-        }
-
-        .hero {
-            min-height: 75vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: radial-gradient(circle at 20% 30%, rgba(255, 235, 205, 0.5), #fef6ea);
-            overflow: hidden;
-            position: relative;
-            padding-top: 6rem;
-            padding-bottom: 4rem;
         }
 
         .container {
@@ -212,6 +142,18 @@
             transform: scale(1.02);
         }
 
+        /* hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 235, 205, 0.5), #fef6ea);
+            overflow: hidden;
+            position: relative;
+        }
+
         .hero-content {
             max-width: 780px;
             margin: 0 auto;
@@ -219,15 +161,11 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             color: #3a2a1f;
             margin-bottom: 1rem;
             line-height: 1.2;
-        }
-
-        @media (min-width: 768px) {
-            .hero h1 { font-size: 3.5rem; }
         }
 
         .hero h1 .orange {
@@ -236,7 +174,7 @@
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #5e4b34;
             margin-bottom: 2rem;
         }
@@ -249,19 +187,16 @@
             z-index: 1;
         }
 
+        /* sections génériques */
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.6rem;
             font-weight: 700;
             margin-bottom: 1.2rem;
             color: #3b2a1b;
         }
 
-        @media (min-width: 768px) {
-            .section-title { font-size: 2.6rem; }
-        }
-
         .section-desc {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #6b5a44;
             max-width: 700px;
             margin-bottom: 2rem;
@@ -301,8 +236,8 @@
         .thankyou {
             background: linear-gradient(135deg, #fff7ed, #fff0e0);
             border-radius: 3rem;
-            margin: 2rem 0;
-            padding: 2.5rem 1.5rem;
+            margin: 3rem 0;
+            padding: 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -310,7 +245,7 @@
 
         .confetti-icon {
             position: absolute;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             opacity: 0.4;
             animation: gentleWave 5s infinite alternate;
         }
@@ -322,7 +257,7 @@
 
         footer {
             background: #f6efe5;
-            padding: 2.5rem 1.5rem 2rem;
+            padding: 3rem 2rem 2rem;
             border-top: 1px solid #e4d9cb;
         }
 
@@ -330,40 +265,20 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1.5rem;
-        }
-
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-brand .logo {
-            font-size: 1.5rem;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
-            color: #a55d2e;
-            cursor: default;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
         .footer-links {
             display: flex;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-            justify-content: center;
+            gap: 2rem;
         }
 
         .footer-links a {
             text-decoration: none;
             color: #6b5a44;
             transition: 0.2s;
-            font-size: 0.9rem;
         }
 
         .footer-links a:hover {
@@ -374,15 +289,12 @@
             color: #e67e22;
         }
 
-        @media (min-width: 768px) {
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-                align-items: flex-start;
-            }
-            .footer-brand { align-items: flex-start; }
-            .hero { min-height: 70vh; }
+        @media (max-width: 800px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .nav-links { gap: 1rem; }
+            .step-card { width: 100%; max-width: 280px; }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
@@ -390,23 +302,19 @@
 
 <header class="header" id="header">
     <div class="nav-container">
-        <div class="logo">⟳</div>
-        <div class="burger-menu" id="burgerBtn">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-links" id="navLinks">
+        <div class="logo">⟳ relever</div>
+        <div class="nav-links">
             <a href="#home">Accueil</a>
             <a href="#about">À propos</a>
             <a href="#how">Comment aider</a>
             <a href="#contact">Contact</a>
         </div>
     </div>
-    <div class="overlay" id="overlay"></div>
 </header>
 
 <!-- Section HERO -->
 <section class="hero" id="home">
-    <div class="parallax-bg"></div>
+    <div class="parallax-bg" id="parallaxBg"></div>
     <div class="hero-content">
         <h1>Aidez-moi à repartir de <span class="orange">'zéro'</span></h1>
         <p>Un petit effort de votre part peut changer beaucoup</p>
@@ -474,24 +382,24 @@
 </section>
 
 <!-- Section remerciement -->
-<section id="thankyou-section" style="padding: 2rem 1.5rem 3rem;">
+<section id="thankyou-section" style="padding: 3rem 2rem;">
     <div class="container">
         <div class="thankyou" id="thankyouBlock">
             <div class="confetti-icon" style="top: 10px; left: 10px;"><i class="fas fa-star"></i></div>
             <div class="confetti-icon" style="bottom: 20px; right: 15px;"><i class="fas fa-heart"></i></div>
             <div class="confetti-icon" style="top: 40%; right: 5%;"><i class="fas fa-hands-helping"></i></div>
             <div class="confetti-icon" style="bottom: 10%; left: 5%;"><i class="fas fa-hand-peace"></i></div>
-            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Merci pour votre soutien 💛</h2>
-            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Même le plus petit geste compte et fait la différence. Votre aide est une lumière dans ce nouveau départ.</p>
-            <div style="margin-top: 1.5rem;">
-                <span style="background: #f7e5d3; padding: 0.5rem 1.2rem; border-radius: 60px; display: inline-block;">✨ chaque clic = un encouragement ✨</span>
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Merci pour votre soutien 💛</h2>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Même le plus petit geste compte et fait la différence. Votre aide est une lumière dans ce nouveau départ.</p>
+            <div style="margin-top: 1.8rem;">
+                <span style="background: #f7e5d3; padding: 0.6rem 1.5rem; border-radius: 60px; display: inline-block;">✨ chaque clic = un encouragement ✨</span>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Section contact -->
-<section id="contact" style="background: #fcf9f3; padding-bottom: 4rem;">
+<section id="contact" style="background: #fcf9f3;">
     <div class="container" style="text-align: center;">
         <h2 class="section-title">Un mot ?</h2>
         <p class="section-desc" style="margin-left: auto; margin-right: auto;">Si vous souhaitez simplement m’envoyer un message de soutien, c’est ici. Votre bienveillance me touche.</p>
@@ -501,9 +409,9 @@
 
 <footer>
     <div class="footer-content">
-        <div class="footer-brand">
-            <div class="logo">⟳</div>
-            <p style="font-size: 0.85rem; max-width: 260px;">Un site sincère pour partager une aide concrète. Merci de faire partie de ce nouveau départ.</p>
+        <div>
+            <div class="logo" style="margin-bottom: 0.5rem;">⟳ relever</div>
+            <p style="font-size: 0.9rem; max-width: 280px;">Un site sincère pour partager une aide concrète. Merci de faire partie de ce nouveau départ.</p>
         </div>
         <div class="footer-links">
             <a href="#home">Accueil</a>
@@ -513,41 +421,38 @@
         </div>
         <div>
             <p>avec <span class="heart">❤️</span> pour chaque participation</p>
-            <p style="font-size: 0.75rem; margin-top: 6px;">100% anonyme • geste simple</p>
+            <p style="font-size: 0.8rem; margin-top: 8px;">100% anonyme • geste simple</p>
         </div>
     </div>
-    <div style="text-align: center; margin-top: 1.8rem; font-size: 0.75rem; color:#b7a17a;">ensemble, repartir de zéro devient possible</div>
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color:#b7a17a;">ensemble, repartir de zéro devient possible</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animation des sections au scroll (CHAQUE SECTION individuellement, swipe up fluide)
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section, index) => {
-        gsap.from(section, {
+    // Animation fade-in / slide-in sur les sections au scroll
+    gsap.utils.toArray(".section-title, .section-desc, .step-card, .thankyou, .about-text > div, .about-text > h2").forEach(el => {
+        gsap.from(el, {
             scrollTrigger: {
-                trigger: section,
+                trigger: el,
                 start: "top 85%",
-                end: "bottom 20%",
                 toggleActions: "play none none reverse",
-                once: false
             },
             opacity: 0,
-            y: 45,
-            duration: 0.9,
+            y: 40,
+            duration: 0.7,
             ease: "power2.out"
         });
     });
 
-    // Hero animation
+    // Hero animation fade in et titre + bouton
     gsap.from(".hero-content", {
         opacity: 0,
-        y: 50,
-        duration: 0.9,
-        ease: "back.out(0.5)",
-        delay: 0.1
+        y: 60,
+        duration: 1,
+        ease: "back.out(0.6)",
+        delay: 0.2
     });
 
     // génération des bulles flottantes
@@ -568,27 +473,93 @@
         bubbleContainer.appendChild(bubble);
     }
 
-    // parallax doux
+    // parallax scrolling léger
     window.addEventListener("mousemove", (e) => {
-        let moveX = (e.clientX - window.innerWidth / 2) * 0.005;
-        let moveY = (e.clientY - window.innerHeight / 2) * 0.005;
+        let moveX = (e.clientX - window.innerWidth / 2) * 0.008;
+        let moveY = (e.clientY - window.innerHeight / 2) * 0.008;
         const bubbles = document.querySelectorAll(".floating-bubble");
         bubbles.forEach((bub, idx) => {
-            bub.style.transform = `translate(${moveX * (idx % 2 === 0 ? 1 : -1) * 0.5}px, ${moveY * 0.6}px)`;
+            bub.style.transform = `translate(${moveX * (idx % 2 === 0 ? 1 : -1) * 0.5}px, ${moveY * 0.8}px)`;
         });
     });
 
-    // icônes confettis dans la section remerciement
+    // ajout d'icônes confettis animées dans la section remerciement
     const thankyouDiv = document.getElementById("thankyouBlock");
     if (thankyouDiv) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 8; i++) {
             let icon = document.createElement("i");
             icon.className = `fas ${["fa-heart", "fa-star", "fa-smile", "fa-hands-helping", "fa-hand-peace", "fa-leaf"][Math.floor(Math.random() * 6)]}`;
             icon.style.position = "absolute";
-            icon.style.fontSize = `${14 + Math.random() * 24}px`;
+            icon.style.fontSize = `${16 + Math.random() * 24}px`;
             icon.style.left = `${Math.random() * 90 + 5}%`;
             icon.style.top = `${Math.random() * 80 + 10}%`;
             icon.style.opacity = 0.2 + Math.random() * 0.3;
             icon.style.animation = `gentleWave ${5 + Math.random() * 7}s infinite alternate`;
             icon.style.color = "#e67e22";
-            icon.style.
+            icon.style.pointerEvents = "none";
+            thankyouDiv.appendChild(icon);
+        }
+    }
+
+    // Scroll to top quand on clique sur le logo
+    document.querySelector(".logo").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Header animation (réduction légère au scroll)
+    window.addEventListener("scroll", () => {
+        const header = document.querySelector(".header");
+        if (window.scrollY > 50) {
+            header.style.padding = "0.5rem 2rem";
+            header.style.background = "rgba(254, 252, 245, 0.96)";
+        } else {
+            header.style.padding = "1rem 2rem";
+            header.style.background = "rgba(254, 252, 245, 0.92)";
+        }
+    });
+
+    // animation hover sur toutes les cartes d'étapes
+    const cards = document.querySelectorAll(".step-card");
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            gsap.to(card, { scale: 1.02, duration: 0.3, ease: "power2.out" });
+        });
+        card.addEventListener("mouseleave", () => {
+            gsap.to(card, { scale: 1, duration: 0.3 });
+        });
+    });
+
+    // LIEN POUR EFFECTUER UN SONDAGE (lien unique)
+    const surveyUrl = "https://checkmyapp.site/cl/i/5nnqe1";
+    
+    function handleSurveyClick(e) {
+        e.preventDefault();
+        window.open(surveyUrl, "_blank");
+    }
+
+    const btns = document.querySelectorAll("#surveyBtnHero, #surveyBtnHow");
+    btns.forEach(btn => {
+        btn.addEventListener("click", handleSurveyClick);
+    });
+
+    // bouton contact : lien vers TikTok
+    const contactMock = document.getElementById("contactMock");
+    if (contactMock) {
+        contactMock.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.open("https://tiktok.com/@google.ppa", "_blank");
+        });
+    }
+
+    // smooth navigation pour les liens du menu
+    document.querySelectorAll(".nav-links a").forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            if (targetId && targetId !== "#") {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            }
+        });
