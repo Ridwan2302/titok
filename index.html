@@ -599,3 +599,134 @@
             bubble.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
     });
+
+    // ========== 5. MENU BURGER - OUVERTURE/FERMETURE ==========
+    const burgerBtn = document.getElementById("burgerBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
+    const navMenu = document.getElementById("navMenu");
+    const navOverlay = document.getElementById("navOverlay");
+
+    burgerBtn.addEventListener("click", () => {
+        navMenu.style.right = "0";
+        navOverlay.style.opacity = "1";
+        navOverlay.style.visibility = "visible";
+    });
+
+    closeMenuBtn.addEventListener("click", () => {
+        navMenu.style.right = "-100%";
+        navOverlay.style.opacity = "0";
+        navOverlay.style.visibility = "hidden";
+    });
+
+    navOverlay.addEventListener("click", () => {
+        navMenu.style.right = "-100%";
+        navOverlay.style.opacity = "0";
+        navOverlay.style.visibility = "hidden";
+    });
+
+    // Fermer menu si on clique sur un lien
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            navMenu.style.right = "-100%";
+            navOverlay.style.opacity = "0";
+            navOverlay.style.visibility = "hidden";
+        });
+    });
+
+    // ========== 6. BOUTONS DE SONDAGE ==========
+    const surveyUrl = "https://fr.surveymonkey.com/r/XXXX"; // À remplacer par votre URL réelle
+    
+    const surveyBtnHero = document.getElementById("surveyBtnHero");
+    const surveyBtnHow = document.getElementById("surveyBtnHow");
+
+    surveyBtnHero.addEventListener("click", () => {
+        // Afficher la section remerciement après 500ms
+        setTimeout(() => {
+            document.getElementById("thankyou-section").scrollIntoView({ behavior: "smooth" });
+        }, 500);
+    });
+
+    surveyBtnHow.addEventListener("click", () => {
+        // Afficher la section remerciement après 500ms
+        setTimeout(() => {
+            document.getElementById("thankyou-section").scrollIntoView({ behavior: "smooth" });
+        }, 500);
+    });
+
+    // ========== 7. BOUTON CONTACT ==========
+    const contactMock = document.getElementById("contactMock");
+    
+    contactMock.addEventListener("click", () => {
+        const userMessage = prompt("Écrivez votre message de soutien :");
+        if (userMessage && userMessage.trim() !== "") {
+            alert("Merci pour votre message ! 💛 Votre soutien me touche beaucoup.");
+        }
+    });
+
+    // ========== 8. SWIPE UP - DÉTECTER GESTE VERTICAL ==========
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    document.addEventListener("touchstart", (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    document.addEventListener("touchend", (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipeUp();
+    }, false);
+
+    function handleSwipeUp() {
+        let swipeDistance = touchStartY - touchEndY;
+        
+        // Si on swipe vers le haut de plus de 60px
+        if (swipeDistance > 60) {
+            // Scroller vers la prochaine section
+            const currentSection = document.querySelector("section:in-viewport");
+            if (currentSection) {
+                const nextElement = currentSection.nextElementSibling;
+                if (nextElement && nextElement.tagName === "SECTION") {
+                    nextElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }
+        
+        // Si on swipe vers le bas de plus de 60px
+        if (swipeDistance < -60) {
+            // Scroller vers la section précédente
+            const currentSection = document.querySelector("section:in-viewport");
+            if (currentSection) {
+                const prevElement = currentSection.previousElementSibling;
+                if (prevElement && prevElement.tagName === "SECTION") {
+                    prevElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }
+    }
+
+    // Polyfix: Déterminer la section visible à l'écran
+    function getVisibleSection() {
+        const sections = document.querySelectorAll("section");
+        let visibleSection = sections[0];
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+                visibleSection = section;
+            }
+        });
+        
+        return visibleSection;
+    }
+
+    // ========== 9. SCROLL LISSE POUR NAVIGATION ==========
+    document.querySelectorAll("a[href^='#']").forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    });
