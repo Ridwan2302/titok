@@ -462,6 +462,7 @@
         <h1>Aidez-moi à repartir de <span class="orange">'zéro'</span></h1>
         <p>Un petit effort de votre part peut changer beaucoup</p>
         <button class="btn-primary survey-btn" id="surveyBtnHero">Effectuer un sondage <i class="fas fa-arrow-right"></i></button>
+        <button class="btn-primary donation-btn" id="donationBtn" style="margin-left: 0.8rem;">Faire un don <i class="fas fa-heart"></i></button>
     </div>
     <div class="scroll-down" id="scrollDown">
         <span></span>
@@ -548,9 +549,9 @@
 <!-- Section contact -->
 <section id="contact" class="section-swipe" style="background: #fcf9f3;">
     <div class="container" style="text-align: center;">
-        <h2 class="section-title">Un mot ?</h2>
-        <p class="section-desc" style="margin-left: auto; margin-right: auto;">Si vous souhaitez simplement m’envoyer un message de soutien, c’est ici. Votre bienveillance me touche.</p>
-        <button class="btn-outline btn-primary" style="background: transparent; border: 1.5px solid #e67e22; color:#e67e22; margin-top: 0.5rem;" id="contactMock">Écrire un petit mot <i class="far fa-envelope"></i></button>
+        <h2 class="section-title">Un don ?</h2>
+        <p class="section-desc" style="margin-left: auto; margin-right: auto;">Si vous souhaitez m’envoyer un petit geste de soutien, vous pouvez le faire ici. Merci du fond du cœur.</p>
+        <button class="btn-outline btn-primary" style="background: transparent; border: 1.5px solid #e67e22; color:#e67e22; margin-top: 0.5rem;" id="donationBtnContact">Faire un don <i class="fas fa-heart"></i></button>
     </div>
 </section>
 
@@ -659,13 +660,22 @@
         btn.addEventListener('click', handleSurveyClick);
     });
 
-    // ========== BOUTON CONTACT ==========
-    const contactMock = document.getElementById('contactMock');
-    if (contactMock) {
-        contactMock.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open("https://tiktok.com/@google.ppa", "_blank");
-        });
+    // ========== BOUTON DONATION ==========
+    const donationUrl = "https://ko-fi.com/melanimei";
+    
+    function handleDonationClick(e) {
+        e.preventDefault();
+        window.open(donationUrl, "_blank");
+    }
+    
+    const donationBtns = document.querySelectorAll('.donation-btn');
+    donationBtns.forEach(btn => {
+        btn.addEventListener('click', handleDonationClick);
+    });
+    
+    const donationBtnContact = document.getElementById('donationBtnContact');
+    if (donationBtnContact) {
+        donationBtnContact.addEventListener('click', handleDonationClick);
     }
 
     // ========== LOGO SCROLL TOP ==========
